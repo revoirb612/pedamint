@@ -25,26 +25,183 @@
     {% if resp %}
         <div id="content" class="container-fluid" >
             <div id="top-content">
-                {% include 'navbar.html' %}
+                <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #73C883;">
+                    <a class="navbar-brand" href="#" style="color: white;">Pedamint</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            {% if resp %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        각종 링크
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="https://drive.worksmobile.com/#/public-group/QDEwMDEwMDAwMDI4MDY3OTZ8MzQ3MjUzNjEwNzQwMTQ2MjI4MXxEfDA" target="_blank">6학년방 > 수업자료</a>
+                                        <a class="dropdown-item" href="https://www.i-scream.co.kr/" target="_blank">i-Scream</a>
+                                        <a class="dropdown-item" href="https://indischool.com/" target="_blank">인디스쿨</a>
+                                        <a class="dropdown-item" href="https://schoolbell-e.com/" target="_blank">학교종이</a>
+                                        <a class="dropdown-item" href="https://gne.eduptl.kr/" target="_blank">업무포털(경남)</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="https://www.xn--o01bj2qisnovf.com/" target="_blank">한뼘코딩</a>
+                                        <a class="dropdown-item" href="https://revoirb612.pythonanywhere.com/" target="_blank">그루그루지갑</a>
+                                        <a class="dropdown-item" href="https://www.hype-link.com/" target="_blank">하입링크</a>
+                                        <a class="dropdown-item" href="https://revoirb612.github.io/reclass/" target="_blank">리클래스</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://www.notion.so/revoirb612/75605117cd7b406d8503d57a6626565f?pvs=4/" target="_blank">Release Notes</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ resp["email"] }}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ url_for('user_profile') }}">프로필</a>
+                                        <a class="dropdown-item" href="{{ url_for('index') }}">사용자 설정</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ url_for('logout') }}">로그아웃</a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('google.login') }}">로그인</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('signup') }}">회원가입</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
             </div>
             <div id="main-content">
-                {% include 'tab.html' %}
+                <ul class="nav nav-pills" id="tabHeader">
+                    <li class="nav-item" id="addTabLi">
+                        <a class="nav-link" id="addTabButton">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="tabBody"></div>
             </div>
         </div>
         <div id="sidebar" class="bg-light">
             <div id="calendar"></div>
         </div>
-        {% include 'toggle_button.html' %}
-        {% include 'modal_event.html' %}
+        <button type="button" id="sidebarCollapse" class="btn">
+            <i id="toggleIcon" class="fa fa-arrow-left" ></i>
+        </button>
+        
+        <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eventModalLabel">이벤트 수정</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="event-title">제목</label>
+                                <input type="text" class="form-control" id="event-title">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-color">색상</label>
+                                <select class="form-control" id="event-color">
+                                    <option value="#3788D8" style="background-color:#3788D8; color:white;">기본색</option>  
+                                    <option value="#FF5733" style="background-color:#FF5733; color:white;">주황색</option>
+                                    <option value="#FFC300" style="background-color:#FFC300; color:white;">노란색</option>
+                                    <option value="#C70039" style="background-color:#C70039; color:white;">진한 빨간색</option>
+                                    <option value="#581845" style="background-color:#581845; color:white;">진한 보라색</option>
+                                    <option value="#28B463" style="background-color:#28B463; color:white;">짙은 녹색</option>
+                                    <option value="#1F618D" style="background-color:#1F618D; color:white;">다크 블루</option>
+                                    <option value="#117A65" style="background-color:#117A65; color:white;">청록색</option>
+                                    <option value="#CB4335" style="background-color:#CB4335; color:white;">벽돌색</option>
+                                    <option value="#76448A" style="background-color:#76448A; color:white;">어두운 보라색</option>
+                                    <option value="#1ABC9C" style="background-color:#1ABC9C; color:white;">밝은 청록색</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-danger" id="delete-event">삭제</button>
+                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     {% else %}
         <div id="content" class="container-fluid">
             <div id="top-content">
-                {% include 'navbar.html' %}
+                <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #73C883;">
+                    <a class="navbar-brand" href="#" style="color: white;">Pedamint</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            {% if resp %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        각종 링크
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="https://drive.worksmobile.com/#/public-group/QDEwMDEwMDAwMDI4MDY3OTZ8MzQ3MjUzNjEwNzQwMTQ2MjI4MXxEfDA" target="_blank">6학년방 > 수업자료</a>
+                                        <a class="dropdown-item" href="https://www.i-scream.co.kr/" target="_blank">i-Scream</a>
+                                        <a class="dropdown-item" href="https://indischool.com/" target="_blank">인디스쿨</a>
+                                        <a class="dropdown-item" href="https://schoolbell-e.com/" target="_blank">학교종이</a>
+                                        <a class="dropdown-item" href="https://gne.eduptl.kr/" target="_blank">업무포털(경남)</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="https://www.xn--o01bj2qisnovf.com/" target="_blank">한뼘코딩</a>
+                                        <a class="dropdown-item" href="https://revoirb612.pythonanywhere.com/" target="_blank">그루그루지갑</a>
+                                        <a class="dropdown-item" href="https://www.hype-link.com/" target="_blank">하입링크</a>
+                                        <a class="dropdown-item" href="https://revoirb612.github.io/reclass/" target="_blank">리클래스</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://www.notion.so/revoirb612/75605117cd7b406d8503d57a6626565f?pvs=4/" target="_blank">Release Notes</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ resp["email"] }}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ url_for('user_profile') }}">프로필</a>
+                                        <a class="dropdown-item" href="{{ url_for('index') }}">사용자 설정</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ url_for('logout') }}">로그아웃</a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('google.login') }}">로그인</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('signup') }}">회원가입</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
             </div>
             <div id="main-content"></div>
             <div id="bottom-content">
-                {% include 'copyright.html' %}
+                <div id="copyright">
+                    <span class="text-muted">Copyright &copy; 2024 </span>
+                    <a href="https://linktr.ee/revoirb612" target="_blank">홍승일</a>
+                    <span class="text-muted"> ― </span>
+                    <a href="/">이용약관</a>
+                    <span class="text-muted"> ― </span>
+                    <a href="/">개인정보 처리방침</a>
+                </div>
             </div>
         </div>
     {% endif %}
