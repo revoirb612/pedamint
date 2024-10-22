@@ -1,0 +1,164 @@
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow-x: hidden; /* 가로 스크롤 비활성화 */
+    height: auto;  /* 내용에 따라 높이 조정 */
+}
+
+/* 전체 페이지의 스크롤바 스타일 */
+body::-webkit-scrollbar, html::-webkit-scrollbar {
+    width: 0px; /* 스크롤바 너비 */
+}
+
+body::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb {
+    background: transparent; /* 스크롤바 색상 */
+}
+
+/* SideBar */
+#sidebar {
+    width: 960px;
+    left: -960px;
+    top: 0;
+    height: 100vh;
+    padding: 18.5px;
+    position: fixed;
+    font-size: 0.95em;
+    transition: left 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1001; /* 높은 z-index 값으로 사이드바를 상위 레이어에 위치시킴 */
+}
+
+#sidebar.active {
+    left: 0; /* 활성화 시 왼쪽에 위치 */
+}
+
+/* Calendar */
+#calendar {
+    height: 100%;  /* 캘린더의 높이를 부모 요소와 동일하게 설정합니다 */
+}
+
+.fc-event .fc-title {
+    white-space: normal;
+}
+
+:root {
+/*
+    --fc-border-color: #73C883;
+    --fc-neutral-bg-color: #73C883;
+
+    --fc-button-text-color: #fff;
+    --fc-button-bg-color: #73C883;
+    --fc-button-border-color: #73C883;
+    --fc-button-hover-bg-color: #629f6b;
+    --fc-button-hover-border-color: #55854f;
+    --fc-button-active-bg-color: #55854f;
+    --fc-button-active-border-color: #466c3f;
+    --fc-list-event-hover-bg-color: #474f57;
+*/
+}
+
+/* contents */
+#content {
+    transition: margin-left .3s;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* top */
+#top-content {
+}
+
+.navbar {
+
+}
+
+.navbar .nav-link {
+}
+
+/* main */
+#main-content {
+    flex-grow: 1;
+    padding: 0px 5px 5px 5px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    border: none;
+    display: flex; /* 여전히 flex */
+    flex-direction: column; /* 원래대로 column 유지 */
+}
+
+/* tab */
+#tabHeader .nav-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#tabHeader .nav-link {
+}
+
+#tabHeader .nav-link:hover {
+}
+
+#tabHeader .nav-link.active {
+}
+
+#tabHeader .close {
+    margin-left: 10px;
+}
+
+#tabBody {
+    flex-grow: 1; /* 추가된 코드 */
+    display: flex; /* 추가된 코드 */
+    flex-direction: column; /* 추가된 코드 */
+}
+
+#tabBody .tab-pane {
+    flex-grow: 1; /* 추가된 코드 */
+}
+
+iframe {
+    width: 100%; /* iframe의 너비를 100%로 설정 */
+    height: 100%; /* iframe의 높이를 100%로 설정 */
+    border-radius: 5px;
+}
+
+/* bottom */
+#bottom-content {
+    height: 30px;
+}
+
+/* toggle-button style */
+#sidebarCollapse {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    z-index: 1000;
+    transform: translateY(-50%);
+    transition: left 0.3s, background-color 0.3s;
+    border: none;
+    border-radius: 0;
+    background-color: #73C883;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+}
+
+#sidebarCollapse:hover {
+    background-color: #357a38;
+}
+
+/* 기타 요소 스타일 */
+#copyright {
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+}

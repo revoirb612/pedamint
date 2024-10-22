@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Information Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars/dist/handlebars.min.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="widgetList"></div>
+
+    <script id="files-template" type="text/x-handlebars-template">
+        <table>
+            <thead>
+                <tr>
+                    <th>위젯</th>
+                    <th>개발자</th>
+                    <th>조회수</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each files}}
+                    <tr>
+                        <td><a href="#" class="file-link" data-filename="{{filename}}">{{filename}}</a></td>
+                        <td>{{author}}</td>
+                        <td>{{views}}</td>
+                        <td>{{description}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            const apiBase = 'https://www.xn--o01bj2qisnovf.com';  // 기본 API URL
+            const filesApiUrl = apiBase + '/api/files';  // 파일 정보 API URL
+            const getFileUrl = filename => apiBase + '/get-file-url/' + encodeURIComponent(filename);  // 파일 URL 생성 함수
+
+            $.getJSON(filesApiUrl, function(files) {
+                const source = $("#files-template").html();
+                const template = Handlebars.compile(source);
+                const html = template({files});
+                $('#widgetList').html(html);
+
+                $('.file-link').click(function(e) {
+                    e.preventDefault();
+                    const filename = $(this).data('filename');
+                    $.getJSON(getFileUrl(filename), function(data) {
+                        window.location.href = data.file_url;
+                        var filenameWithoutExtension = filename.split('.').slice(0, -1).join('.');
+                        var message = {filename: filenameWithoutExtension, file_url: data.file_url, tabID: window.frameElement.id.replace('iframe', '')};
+                        console.log(message);
+                        window.parent.postMessage(message, 'https://www.pedamint.com');  // 주의: 실제 origin으로 변경하세요!
+                    }).fail(function(error) {
+                        console.error(error);
+                    });
+                });
+            }).fail(function(error) {
+                console.error(error);
+            });
+        });
+    </script>
+</body>
+</html>
