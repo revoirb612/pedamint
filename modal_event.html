@@ -1,0 +1,41 @@
+<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eventModalLabel">이벤트 수정</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="event-title">제목</label>
+            <input type="text" class="form-control" id="event-title">
+          </div>
+          <div class="form-group">
+            <label for="event-color">색상</label>
+                <select class="form-control" id="event-color">
+                  <option value="#3788D8" style="background-color:#3788D8; color:white;">기본색</option>  
+                  <option value="#FF5733" style="background-color:#FF5733; color:white;">주황색</option>
+                  <option value="#FFC300" style="background-color:#FFC300; color:white;">노란색</option>
+                  <option value="#C70039" style="background-color:#C70039; color:white;">진한 빨간색</option>
+                  <option value="#581845" style="background-color:#581845; color:white;">진한 보라색</option>
+                  <option value="#28B463" style="background-color:#28B463; color:white;">짙은 녹색</option>
+                  <option value="#1F618D" style="background-color:#1F618D; color:white;">다크 블루</option>
+                  <option value="#117A65" style="background-color:#117A65; color:white;">청록색</option>
+                  <option value="#CB4335" style="background-color:#CB4335; color:white;">벽돌색</option>
+                  <option value="#76448A" style="background-color:#76448A; color:white;">어두운 보라색</option>
+                  <option value="#1ABC9C" style="background-color:#1ABC9C; color:white;">밝은 청록색</option>
+                </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-danger" id="delete-event">삭제</button>
+        <button type="button" class="btn btn-primary" id="save-event">저장</button>
+      </div>
+    </div>
+  </div>
+</div>

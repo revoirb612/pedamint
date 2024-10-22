@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Is Admin: {{ 'Yes' if user.is_admin else 'No' }}</p>
+    <p>Subscription Start: {{ user.subscription_start }}</p>
+    <p>Subscription Length: {{ user.subscription_length }}</p>
+    <h2>Payments</h2>
+    {% for payment in user.payments %}
+    <p>Payment ID: {{ payment.payment_id }}</p>
+    <p>Payment Status: {{ payment.payment_status }}</p>
+    <p>Payment Amount: {{ payment.payment_amount }}</p>
+    <p>Payment Date: {{ payment.payment_date }}</p>
+    {% endfor %}
+</body>
+</html>

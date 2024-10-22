@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>페다민트</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="https://unpkg.com/dexie@3/dist/dexie.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/ico/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/ico/favicon-16x16.png">
+    <link rel="manifest" href="/static/ico/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    {% if resp %}
+        <div id="content" class="container-fluid" >
+            <div id="top-content">
+                {% include 'navbar.html' %}
+            </div>
+            <div id="main-content">
+                {% include 'tab.html' %}
+            </div>
+        </div>
+        <div id="sidebar" class="bg-light">
+            <div id="calendar"></div>
+        </div>
+        {% include 'toggle_button.html' %}
+        {% include 'modal_event.html' %}
+
+    {% else %}
+        <div id="content" class="container-fluid">
+            <div id="top-content">
+                {% include 'navbar.html' %}
+            </div>
+            <div id="main-content"></div>
+            <div id="bottom-content">
+                {% include 'copyright.html' %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if resp %}
+        <script>
+            var userID = "{{ resp['email'] }}";
+            var dbName = 'calendarDB_' + userID;
+            var db = new Dexie(dbName);
+            db.version(1).stores({
+                events: 'id',
+                tabs: 'id',
+                meta: 'key'
+            });
+        </script>
+        <script src="/static/js/script.js"></script>
+        <script src="/static/js/calendar.js"></script>
+        <script src="/static/js/tab.js"></script>
+    {% endif %}
+
+    <script>
+    $(document).ready(function() {
+        // 모달이 열릴 때 실행될 함수
+        $('#eventModal').on('shown.bs.modal', function () {
+            var $eventTitle = $('#event-title');
+            $eventTitle.focus(); // 제목 입력 필드에 포커스를 맞춤
+            $eventTitle.select(); // 기존 텍스트를 선택(블록 설정)
+        });
+
+        // 모달 내의 form에 대한 'submit' 이벤트 처리
+        $('#eventModal').find('form').on('submit', function(event) {
+            event.preventDefault(); // 기본 form 제출 동작 방지
+
+            // '저장' 버튼을 프로그래밍 방식으로 클릭
+            $('#save-event').click();
+        });
+    });
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #73C883;">
+    <a class="navbar-brand" href="#" style="color: white;">Pedamint</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            {% if resp %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        각종 링크
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="https://drive.worksmobile.com/#/public-group/QDEwMDEwMDAwMDI4MDY3OTZ8MzQ3MjUzNjEwNzQwMTQ2MjI4MXxEfDA" target="_blank">6학년방 > 수업자료</a>
+                        <a class="dropdown-item" href="https://www.i-scream.co.kr/" target="_blank">i-Scream</a>
+                        <a class="dropdown-item" href="https://indischool.com/" target="_blank">인디스쿨</a>
+                        <a class="dropdown-item" href="https://schoolbell-e.com/" target="_blank">학교종이</a>
+                        <a class="dropdown-item" href="https://gne.eduptl.kr/" target="_blank">업무포털(경남)</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="https://www.xn--o01bj2qisnovf.com/" target="_blank">한뼘코딩</a>
+                        <a class="dropdown-item" href="https://revoirb612.pythonanywhere.com/" target="_blank">그루그루지갑</a>
+                        <a class="dropdown-item" href="https://www.hype-link.com/" target="_blank">하입링크</a>
+                        <a class="dropdown-item" href="https://revoirb612.github.io/reclass/" target="_blank">리클래스</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.notion.so/revoirb612/75605117cd7b406d8503d57a6626565f?pvs=4/" target="_blank">Release Notes</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ resp["email"] }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('user_profile') }}">프로필</a>
+                        <a class="dropdown-item" href="{{ url_for('index') }}">사용자 설정</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">로그아웃</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('google.login') }}">로그인</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('signup') }}">회원가입</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+</head>
+<body>
+    <h1>Users</h1>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Is Admin</th>
+            <th>Is Active</th>
+            <th>Subscription Start</th>
+            <th>Subscription Length</th>
+            <th>Has Valid Subscription</th>
+            <th>Payments</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.email }}</td>
+            <td>{{ user.is_admin }}</td>
+            <td>{{ user.is_active }}</td>
+            <td>{{ user.subscription_start }}</td>
+            <td>{{ user.subscription_length }}</td>
+            <td>{{ user.has_valid_subscription }}</td>
+            <td>
+                {% for payment in user.payments %}
+                <p>Payment ID: {{ payment.payment_id }}</p>
+                <p>Payment Status: {{ payment.payment_status }}</p>
+                <p>Payment Amount: {{ payment.payment_amount }}</p>
+                <p>Payment Date: {{ payment.payment_date }}</p>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
